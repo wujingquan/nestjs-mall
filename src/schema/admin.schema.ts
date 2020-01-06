@@ -1,39 +1,39 @@
-import * as mongoose from 'mongoose'
+import * as mongoose from 'mongoose';
 const Schema = mongoose.Schema;
 const d = new Date();
 
 export const AdminSchema = new mongoose.Schema({
   username: {
-    type: String
+    type: String,
   },
 
   password: {
-    type: String
+    type: String,
   },
 
   mobile: {
-    type: String
+    type: String,
   },
 
   email: {
-    type: String
+    type: String,
   },
 
   status: {
     type: Number,
-    default: 1
+    default: 1,
   },
 
   role_id: {
-    type: Schema.Types.ObjectId
+    type: Schema.Types.ObjectId,
   },
 
   add_time: {
     type: Number,
-    default: d.getTime()
+    default: d.getTime(),
   },
 
   is_super: {
-    type: Number
-  }
-})
+    type: Number,
+  },
+});

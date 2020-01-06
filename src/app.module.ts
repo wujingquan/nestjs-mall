@@ -4,11 +4,20 @@ import { AppService } from './app.service';
 import { AdminModule } from './module/admin/admin.module';
 import { ApiModule } from './module/api/api.module';
 import { DefaultModule } from './module/default/default.module';
-import { ToolsService } from './services/tools/tools.service';
+
+import { MongooseModule } from '@nestjs/mongoose';
 
 @Module({
-  imports: [AdminModule, ApiModule, DefaultModule],
+  imports: [
+    MongooseModule.forRoot(process.env.DB_URL, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    }),
+    AdminModule,
+    ApiModule,
+    DefaultModule,
+  ],
   controllers: [AppController],
-  providers: [AppService, ToolsService],
+  providers: [AppService],
 })
 export class AppModule {}
