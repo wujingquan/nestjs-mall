@@ -41,8 +41,16 @@ export class LoginController {
   async doLogin(@Body() body, @Request() req, @Response() res) {
     const { code, username, password } = body;
 
+    if (!code.length) {
+      this.toolsService.error(
+        res,
+        '验证码不正确',
+        `/${Config.adminPath}/login`,
+      );
+      return;
+    }
+
     if (
-      !code.length ||
       code.length !== 5 ||
       code.toUpperCase() !== req.session.code.toUpperCase()
     ) {
