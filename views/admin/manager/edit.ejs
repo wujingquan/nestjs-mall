@@ -1,4 +1,4 @@
-<%- include ../public/page_header.ejs%>
+<%- include('../public/page_header') %>
 
 <div class="container-fluid">
     <div class="row">
@@ -9,17 +9,23 @@
             </div>
             <div class="panel-body">
                 <div class="table-responsive input-form">
-                    <form action="/doAdd" method="post">
+                    <form action="/<%= config.adminPath %>/manager/doEdit" method="post">
+                        <input type="hidden" value="<%= adminResult._id %>" name="_id">
                         <ul>
-                            <li>  商品名称: <input type="text" name="title"/></li>
-
-                            <li>  商品图片: <input type="file" name="pic"/></li>
-                            <li>  商品价格: <input type="text" name="price"/></li>
-                            <li>  商品邮费: <input type="text" name="fee"/></li>
-
-                            <li>
-                                商品描述:
-                                <textarea name="description" id="" cols="60" rows="8"></textarea>
+                            <li>  管理员名称: <input type="text" name="username" value="<%= adminResult.username %>" disabled readonly /></li>
+                            <li>  管理员密码: <input type="password" name="password" /></li>
+                            <li>  管理员电话: <input type="text" name="mobile" value="<%= adminResult.mobile %>" /></li>
+                            <li>  管理员邮箱: <input type="text" name="email" value="<%= adminResult.email %>" /></li>
+                            <li>  管理员邮箱: 
+                                <select name="role_id" id="role_id">
+                                    <% for (let item of roleResult) { %>
+                                        <% if (item._id.toString() === adminResult.role_id.toString()) { %>
+                                            <option selected value="<%= item._id %>"><%= item.title %></option>
+                                        <% } else { %>
+                                            <option value="<%= item._id %>"><%= item.title %></option>
+                                        <% } %>
+                                    <% } %>
+                                </select>
                             </li>
 
                             <li>

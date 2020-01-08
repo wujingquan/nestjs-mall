@@ -11,6 +11,9 @@ async function bootstrap() {
 
   app.setBaseViewsDir('views');
   app.setViewEngine('ejs');
+
+  // https://github.com/mde/ejs/wiki/Using-EJS-with-Express
+  app.set('view options', { debug: false });
   app.useStaticAssets(path.join(__dirname, '..', 'public'));
   // app.use(cookieParser());
   app.use(

@@ -1,13 +1,17 @@
-import { Controller, Get, Render } from '@nestjs/common';
+import { Controller, Get, Render, Query, Post, Body } from '@nestjs/common';
 import { Config } from '../../../config/index';
-import { AdminService } from 'src/services/admin/admin.service';
+import { AdminService } from '../../../services/admin/admin.service';
+import { RoleService } from '../../../services/role/role.service';
 
 @Controller(`${Config.adminPath}/manager`)
 export class ManagerController {
-  constructor(private readonly adminService: AdminService) {}
+  constructor(
+    private readonly adminService: AdminService,
+    private readonly roleService: RoleService
+  ) {}
 
   @Get()
-  // @Render('admin/manager/index')
+  @Render('admin/manager/index')
   async index() {
     const result = await this.adminService.getModel().aggregate([
       {
@@ -19,26 +23,56 @@ export class ManagerController {
         },
       },
     ]);
-    // const result = await this.adminService.getModel().aggregate($project: {
-    //   username: 1
-    // })
-    // console.log(result);
-    // db.mycol.aggregate([
-    //   {
-    //     $group: {
-    //       _id: '$by_user', num_tutorial: {
-    //         $sum: 1 
-    //       } 
-    //     } 
-    //   },
-    // ]);
-    // return {};
-    return result;
+    console.log(JSON.stringify(result))
+    return {
+      adminResult: result
+    };
   }
 
   @Get('add')
   @Render('admin/manager/add')
   add() {
     return {};
+  }
+
+  @Get('edit')
+  @Render('admin/manager/edit')
+  async edit (@Query() query) {
+    const adminResult = await this.adminService.findOne({ _id: query.id });
+    const roleResult = await this.roleService.find();
+    console.log(roleResult)
+    return {
+      adminResult,
+      roleResult
+    }
+  }
+
+  @Post('doEdit')
+  async doEdit(@Body() body) {
+    console.log(body)
+
+    let {
+      _id,
+      password,
+      mobile,
+      email,
+      role_id
+    } = body
+
+    if (!password.length) {
+      await this.adminService.updateOne({
+        _id: '123',
+      }, {
+        email: '123'
+      });
+    }
+
+    // if () {
+
+    // }
+
+    
+    
+    return 1;
   }
 }
