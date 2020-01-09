@@ -19,6 +19,12 @@ export class ToolsService {
     return md5(str);
   }
 
+  async success(res, redirectUrl) {
+    await res.render('admin/public/success', {
+      redirectUrl: redirectUrl
+    })
+  }
+
   async error(res, message, redirectUrl) {
     await res.render('admin/public/error', {
       message: message,

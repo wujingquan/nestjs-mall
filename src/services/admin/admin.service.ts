@@ -1,14 +1,14 @@
 import { Injectable, Inject } from '@nestjs/common';
-import { Model } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
-import { Admin } from '../../interfaces/admin.interface';
+import { Model } from 'mongoose'
+import { AdminInterface, AdminModelInterface } from '../../interfaces/admin.interface';
 
 @Injectable()
 export class AdminService {
   constructor(
     @InjectModel('Admin')
-    private readonly adminModel: Model<Admin>
-  ) {}
+    private readonly adminModel: Model<AdminModelInterface>
+  ) { }
 
   async find(json = {}) {
     return await this.adminModel.find(json);
@@ -22,7 +22,17 @@ export class AdminService {
     return this.adminModel;
   }
 
-  async updateOne(json1: Admin, json2: Admin ) {
+  async updateOne(json1: AdminInterface, json2: AdminInterface) {
     return await this.adminModel.updateOne(json1, json2)
+  }
+
+  async add (json: AdminInterface) {
+    try {
+      const admin = new this.adminModel(json);
+      const result = await admin.save();
+      return result;
+    } catch (error) {
+      return null;
+    }
   }
 }

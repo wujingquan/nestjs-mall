@@ -1,13 +1,11 @@
 import { Injectable } from '@nestjs/common';
-import { Model } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
-import { Role } from '../../interfaces/role.interface';
 
 @Injectable()
 export class RoleService {
   constructor(
     @InjectModel('Role')
-    private readonly roleModel: Model<Role>,
+    private readonly roleModel
   ) {}
 
   async find(json = {}) {
@@ -17,8 +15,4 @@ export class RoleService {
   async findOne(json = {}) {
     return await this.roleModel.findOne(json);
   }
-
-  // getModel() {
-  //   return this.roleModel;
-  // }
 }

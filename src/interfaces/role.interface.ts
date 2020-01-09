@@ -1,6 +1,4 @@
-import { Document, Schema } from 'mongoose';
-
-export interface Role extends Document {
+export interface Role {
   readonly title?: string;
   readonly description?: string;
   readonly status?: number;
