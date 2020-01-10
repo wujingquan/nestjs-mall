@@ -35,4 +35,15 @@ export class AdminService {
       return null;
     }
   }
+
+  async delete(json) {
+    try {
+      console.log('from admin service msg ', json)
+      const result = await this.adminModel.deleteOne(json)
+      console.log('from admin service msg ', result)
+      return result
+    } catch (error) {
+      return null;
+    }
+  }
 }

@@ -112,4 +112,11 @@ export class ManagerController {
       return {}
     }
   }
+
+  @Get('doDelete')
+  async doDelete(@Query() query, @Response() res) {
+    const result = await this.adminService.delete({ _id: query.id });
+    console.log(result)
+    this.toolsService.success(res, `/${Config.adminPath}/manager`);
+  }
 }
