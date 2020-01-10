@@ -8,7 +8,6 @@ import { DefaultModule } from './module/default/default.module';
 import { MongooseModule } from '@nestjs/mongoose';
 
 import { InitMiddleware } from './middlewares/init.middleware'
-import { RoleService } from './services/role/role.service';
 
 @Module({
   imports: [

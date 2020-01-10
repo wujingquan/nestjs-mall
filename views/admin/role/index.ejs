@@ -1,0 +1,36 @@
+<%- include('../public/page_header') %>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="table-responsive">
+            <table class="table table-bordered">
+                <thead>
+                    <tr class="th">
+                        <th>角色名称</th>
+                        <th>角色描述</th>
+                        <th>增加时间</th>
+                        <th class="text-center">操作</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% for (let item of roleResult) { %>
+                    <tr>
+                        <td><%= item.title %></td>
+                        <td><%= item.description %></td>
+                        <td><%= helper.moment(item.add_time).format('YYYY-MM-DD HH:mm') %></td>
+                        <td class="text-center">
+                            <a href="/<%= config.adminPath %>/role/auth?id=<%= item._id %>">授权</a> 　
+                            <a href="/<%= config.adminPath %>/role/edit?id=<%= item._id %>">修改</a> 　
+                            <a class="delete" href="/<%= config.adminPath %>/role/delete?id=<%= item._id %>">删除</a>
+                        </td>
+                    </tr>
+                    <% } %>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+</body>
+
+</html>

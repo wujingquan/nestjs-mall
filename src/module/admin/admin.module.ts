@@ -4,13 +4,18 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { LoginController } from './login/login.controller';
 import { MainController } from './main/main.controller';
 import { ManagerController } from './manager/manager.controller';
+import { RoleController } from './role/role.controller';
 
 import { ToolsService } from '../../services/tools/tools.service';
 import { AdminService } from '../../services/admin/admin.service';
 import { RoleService } from '../../services/role/role.service';
+import { AccessService } from '../../services/access/access.service';
+import { RoleAccessService } from '../../services/role-access/role-access.service';
 
 import { AdminSchema } from '../../schema/admin.schema';
-import { Rolechema } from '../../schema/role.schema';
+import { RoleSchema } from '../../schema/role.schema';
+import { AccessSchema } from '../../schema/access.schema';
+import { RoleAccessSchema } from '../../schema/role-access';
 
 @Module({
   imports: [
@@ -22,12 +27,22 @@ import { Rolechema } from '../../schema/role.schema';
       },
       {
         name: 'Role',
-        schema: Rolechema,
+        schema: RoleSchema,
         collection: 'role'
+      },
+      {
+        name: 'Access',
+        schema: AccessSchema,
+        collection: 'access'
+      },
+      {
+        name: 'RoleAccess',
+        schema: RoleAccessSchema,
+        collection: 'role_access'
       }
     ]),
   ],
-  controllers: [LoginController, MainController, ManagerController],
-  providers: [ToolsService, AdminService, RoleService],
+  controllers: [LoginController, MainController, ManagerController, RoleController],
+  providers: [ToolsService, AdminService, RoleService, AccessService, RoleAccessService],
 })
 export class AdminModule {}
