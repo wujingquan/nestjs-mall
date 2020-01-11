@@ -42,7 +42,7 @@
                         <td><%= item.username %></td>
                         <td><%= item.mobile %></td>
                         <td><%= item.email %></td>
-                        <td><%= item.role[0].title %></td>
+                        <td><%= item.role.length ? item.role[0].title : '' %></td>
 
                         <td class="text-center">
                             <a href="/<%= config.adminPath %>/manager/edit?id=<%= item._id %>">修改</a>
