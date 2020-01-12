@@ -28,21 +28,32 @@ import { RoleAccessSchema } from '../../schema/role_access';
       {
         name: 'Role',
         schema: RoleSchema,
-        collection: 'role'
+        collection: 'role',
       },
       {
         name: 'Access',
         schema: AccessSchema,
-        collection: 'access'
+        collection: 'access',
       },
       {
         name: 'RoleAccess',
         schema: RoleAccessSchema,
-        collection: 'role_access'
-      }
+        collection: 'role_access',
+      },
     ]),
   ],
-  controllers: [LoginController, MainController, ManagerController, RoleController],
-  providers: [ToolsService, AdminService, RoleService, AccessService, RoleAccessService],
+  controllers: [
+    LoginController,
+    MainController,
+    ManagerController,
+    RoleController,
+  ],
+  providers: [
+    ToolsService,
+    AdminService,
+    RoleService,
+    AccessService,
+    RoleAccessService,
+  ],
 })
 export class AdminModule {}

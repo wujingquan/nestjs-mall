@@ -5,18 +5,18 @@ import { InjectModel } from '@nestjs/mongoose';
 export class AccessService {
   constructor(
     @InjectModel('Access')
-    private readonly accessModel
-  ){}
+    private readonly accessModel,
+  ) {}
 
   async find(json) {
     try {
-      return await this.accessModel.find(json)
-    } catch(err) {
-      return null
+      return await this.accessModel.find(json);
+    } catch (err) {
+      return null;
     }
   }
 
   getModel() {
-    return this.accessModel
+    return this.accessModel;
   }
 }

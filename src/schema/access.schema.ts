@@ -31,7 +31,7 @@ export const AccessSchema = new mongoose.Schema({
    * 0 模块
    */
   module_id: {
-    type: Schema.Types.Mixed
+    type: Schema.Types.Mixed,
   },
 
   sort: {
@@ -40,11 +40,11 @@ export const AccessSchema = new mongoose.Schema({
     description: String,
     status: {
       type: Number,
-      default: 1
+      default: 1,
     },
     add_time: {
       type: Number,
-      default: d.getTime()
-    }
-  }
+      default: d.getTime(),
+    },
+  },
 });

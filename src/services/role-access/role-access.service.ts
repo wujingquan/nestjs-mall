@@ -5,31 +5,30 @@ import { InjectModel } from '@nestjs/mongoose';
 export class RoleAccessService {
   constructor(
     @InjectModel('RoleAccess')
-    private readonly roleAccessModel
-  ){}
+    private readonly roleAccessModel,
+  ) {}
 
   async find(json) {
     try {
-      return this.roleAccessModel.find(json)
-    } catch(err) {
-      return null
+      return this.roleAccessModel.find(json);
+    } catch (err) {
+      return null;
     }
   }
-  
+
   async deleteMany(json) {
     try {
-      return await this.roleAccessModel.deleteMany(json)
-    } catch(err) {
-      return null
+      return await this.roleAccessModel.deleteMany(json);
+    } catch (err) {
+      return null;
     }
   }
 
   async insertMany(json) {
     try {
-      return await this.roleAccessModel.insertMany(json)
-    } catch(err) {
-      return null
+      return await this.roleAccessModel.insertMany(json);
+    } catch (err) {
+      return null;
     }
   }
-
 }

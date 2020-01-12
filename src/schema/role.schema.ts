@@ -9,11 +9,11 @@ export const RoleSchema = new mongoose.Schema({
 
   status: {
     type: Number,
-    default: 1
+    default: 1,
   },
 
   add_time: {
     type: Number,
-    default: d.getTime()
-  }
+    default: d.getTime(),
+  },
 });

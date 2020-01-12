@@ -21,8 +21,8 @@ export class ToolsService {
 
   async success(res, redirectUrl) {
     await res.render('admin/public/success', {
-      redirectUrl: redirectUrl
-    })
+      redirectUrl: redirectUrl,
+    });
   }
 
   async error(res, message, redirectUrl) {

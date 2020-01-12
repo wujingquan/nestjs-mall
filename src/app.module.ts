@@ -7,7 +7,7 @@ import { DefaultModule } from './module/default/default.module';
 
 import { MongooseModule } from '@nestjs/mongoose';
 
-import { InitMiddleware } from './middlewares/init.middleware'
+import { InitMiddleware } from './middlewares/init.middleware';
 
 @Module({
   imports: [
@@ -24,8 +24,6 @@ import { InitMiddleware } from './middlewares/init.middleware'
 })
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
-    consumer
-      .apply(InitMiddleware)
-      .forRoutes('*')
+    consumer.apply(InitMiddleware).forRoutes('*');
   }
 }
