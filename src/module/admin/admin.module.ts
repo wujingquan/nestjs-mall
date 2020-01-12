@@ -15,7 +15,7 @@ import { RoleAccessService } from '../../services/role-access/role-access.servic
 import { AdminSchema } from '../../schema/admin.schema';
 import { RoleSchema } from '../../schema/role.schema';
 import { AccessSchema } from '../../schema/access.schema';
-import { RoleAccessSchema } from '../../schema/role-access';
+import { RoleAccessSchema } from '../../schema/role_access';
 
 @Module({
   imports: [

@@ -66,15 +66,12 @@ export class RoleController {
   }
 
   @Get('auth')
-  // @Render('admin/role/auth')
+  @Render('admin/role/auth')
   async auth(@Query() query) {
     const {
       id: role_id
     } = query
 
-    // const result = await this.accessService.find({
-    //   role_id
-    // })
     const result = await this.accessService.getModel().aggregate([
       {
         $lookup: {
@@ -84,16 +81,64 @@ export class RoleController {
           as: 'items'
         }
       },
-      // {
-      //   $match: {
-      //     "module_id": '0'
-      //   }
-      // }
-    ]);
+      {
+        $match: {
+          "module_id": '0'
+        }
+      }
+    ]); 
 
-    console.log('role_id', role_id)
-    console.log('result', result)
 
-    return {result}
+
+
+
+
+
+
+
+
+
+
+    
+
+    const roleAccessResult = await this.roleAccessService.find({ role_id })
+    const roleAccessIds = roleAccessResult.map(item => item.access_id.toString())
+
+    for (let item of result) {
+      if (roleAccessIds.includes(item._id.toString())) {
+        item.checked = true;
+      }
+      
+      for (let sub of item.items) {
+        if (roleAccessIds.includes(sub._id.toString())) {
+          sub.checked = true;
+        }
+      }
+    }
+
+    return {
+      list: result,
+      role_id
+    }
+  }
+
+  @Post('doAuth')
+  async doAuth(@Body() body, @Response() res) {
+    const {
+      role_id,
+      access_node
+    } = body
+
+    const list = []
+    for (let access_id of access_node) {
+      list.push({
+        access_id,
+        role_id
+      })
+    }
+
+    await this.roleAccessService.deleteMany({ role_id });
+    await this.roleAccessService.insertMany(list);
+    this.toolsService.success(res, `/${Config.adminPath}/role/auth?id=${role_id}`);
   }
 }
