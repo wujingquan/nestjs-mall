@@ -5,6 +5,7 @@ import { NestExpressApplication } from '@nestjs/platform-express';
 import * as path from 'path';
 import * as cookieParser from 'cookie-parser';
 import * as session from 'express-session';
+const FileStore = require('session-file-store')(session);
 
 async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
@@ -18,6 +19,7 @@ async function bootstrap() {
   app.use(cookieParser());
   app.use(
     session({
+      store: new FileStore(),
       secret: 'keyboard cat',
       resave: true,
       saveUninitialized: true,
