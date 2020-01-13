@@ -55,5 +55,6 @@ import { RoleAccessSchema } from '../../schema/role_access';
     AccessService,
     RoleAccessService,
   ],
+  exports: [AdminService, RoleService, AccessService, RoleAccessService],
 })
 export class AdminModule {}

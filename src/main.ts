@@ -15,7 +15,7 @@ async function bootstrap() {
   // https://github.com/mde/ejs/wiki/Using-EJS-with-Express
   app.set('view options', { debug: false });
   app.useStaticAssets(path.join(__dirname, '..', 'public'));
-  // app.use(cookieParser());
+  app.use(cookieParser());
   app.use(
     session({
       secret: 'keyboard cat',

@@ -84,5 +84,14 @@ export class LoginController {
       );
       return;
     }
+
+    req.session.userinfo = result;
+    this.toolsService.success(res, `/${Config.adminPath}/main`);
+  }
+
+  @Get('loginOut')
+  loginOut(@Request() req, @Response() res) {
+    req.session.userinfo = null;
+    res.redirect(`${Config.adminPath}/login`);
   }
 }
