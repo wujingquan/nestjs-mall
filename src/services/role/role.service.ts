@@ -31,4 +31,13 @@ export class RoleService {
       return null;
     }
   }
+
+  async add (json) {
+    try {
+      const role = new this.roleModel(json);
+      return await role.save()
+    } catch (err) {
+      return null;
+    }
+  }
 }

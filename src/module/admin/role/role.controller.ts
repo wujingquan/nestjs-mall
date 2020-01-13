@@ -31,6 +31,27 @@ export class RoleController {
     };
   }
 
+  @Get('add')
+  @Render('admin/role/add')
+  async add() {
+    return {}
+  }
+
+  @Post('doAdd')
+  async doAdd(@Body() body, @Response() res) {
+    if (!body.title || !body.title.length) {
+      this.toolsService.error(res, '标题不能为空', `/${Config.adminPath}/role`);
+      return;
+    }
+
+    let result = await this.roleService.add(body);
+    if (result) {
+      this.toolsService.success(res, `/${Config.adminPath}/role`);
+    } else {
+      this.toolsService.error(res, '增加失败', `/${Config.adminPath}/role`);
+    }
+  }
+
   @Get('edit')
   @Render('admin/role/edit')
   async edit(@Query() query) {
