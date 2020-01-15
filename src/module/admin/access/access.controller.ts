@@ -1,4 +1,4 @@
-import { Controller, Get, Render } from '@nestjs/common';
+import { Controller, Get, Render, Query } from '@nestjs/common';
 import { Config } from 'src/config/index';
 import { ToolsService } from '../../../services/tools/tools.service';
 import { AccessService } from '../../../services/access/access.service';
@@ -8,7 +8,7 @@ export class AccessController {
   constructor(
     private readonly toolsService: ToolsService,
     private readonly accessService: AccessService,
-  ) {}
+  ) { }
 
   @Get()
   @Render('admin/access/index')
@@ -28,9 +28,22 @@ export class AccessController {
         }
       }
     ])
-    
+
     return {
       list
     }
+  }
+
+  @Get('edit')
+  @Render('admin/access/edit')
+  async edit(@Query() query) {
+    const result = await this.accessService.find({
+      module_id: '0'
+    })
+    const accessResult = await this.accessService.find({ _id: query.id })
+    return {
+      list:accessResult[0],
+      moduleList:result
+  };
   }
 }
