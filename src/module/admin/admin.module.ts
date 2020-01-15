@@ -5,6 +5,7 @@ import { LoginController } from './login/login.controller';
 import { MainController } from './main/main.controller';
 import { ManagerController } from './manager/manager.controller';
 import { RoleController } from './role/role.controller';
+import { AccessController } from './access/access.controller';
 
 import { ToolsService } from '../../services/tools/tools.service';
 import { AdminService } from '../../services/admin/admin.service';
@@ -16,6 +17,7 @@ import { AdminSchema } from '../../schema/admin.schema';
 import { RoleSchema } from '../../schema/role.schema';
 import { AccessSchema } from '../../schema/access.schema';
 import { RoleAccessSchema } from '../../schema/role_access';
+
 
 @Module({
   imports: [
@@ -47,6 +49,7 @@ import { RoleAccessSchema } from '../../schema/role_access';
     MainController,
     ManagerController,
     RoleController,
+    AccessController,
   ],
   providers: [
     ToolsService,

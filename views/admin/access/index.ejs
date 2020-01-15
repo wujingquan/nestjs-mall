@@ -1,0 +1,71 @@
+<%- include('../public/page_header') %>
+
+<div class="container-fluid">
+    <div class="row">
+
+        <!--
+                列表展示
+            -->
+        <div class="table-responsive">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>模块名称</th>
+                        <th>节点类型</th>
+                        <th>操作名称</th>
+                        <th>操作地址</th>
+                        <th>排序</th>
+                        <th>描述</th>
+
+                        <th class="text-center">操作</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% for (let item of list) { %>
+                        <tr style="background: orange;">
+                            <td><%= item.module_name %></td>
+                            <td>
+                                <% if (item.type === 1) { %>
+                                    模块
+                                <% } else if (item.type === 2) { %>
+                                    菜单
+                                <% } else { %>
+                                    操作
+                                <% } %>
+                            </td>
+                            <td><%= item.action_name %></td>
+                            <td><%= item.url %></td>
+                            <td><%= item.sort %></td>
+                            <td><%= item.description %></td>
+                            <td class="text-center"><a href="/<%=config.adminPath%>/access/edit?id=<%=item._id%>">修改</a></td>
+                        </tr>
+                        <% for (let sub of item.items) { %>
+                        <tr>
+                            <td>----<%= sub.module_name %></td>
+                            <td>
+                                <% if (sub.type === 1) { %>
+                                    模块
+                                <% } else if (sub.type === 2) { %>
+                                    菜单
+                                <% } else { %>
+                                    操作
+                                <% } %>
+                            </td>
+                            <td><%= sub.action_name %></td>
+                            <td><%= sub.url %></td>
+                            <td><%= sub.sort %></td>
+                            <td><%= sub.description %></td>
+                            <td class="text-center"><a href="/<%=config.adminPath%>/access/edit?id=<%=sub._id%>">修改</a>  <a class="delete" href="/<%=config.adminPath%>/access/delete?id=<%=sub._id%>">删除</a></td>
+                        </tr>
+                        <% } %>
+                    <% } %>
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+</div>
+
+</body>
+
+</html>
