@@ -6,17 +6,20 @@ import { MainController } from './main/main.controller';
 import { ManagerController } from './manager/manager.controller';
 import { RoleController } from './role/role.controller';
 import { AccessController } from './access/access.controller';
+import { FocusController } from './focus/focus.controller';
 
 import { ToolsService } from '../../services/tools/tools.service';
 import { AdminService } from '../../services/admin/admin.service';
 import { RoleService } from '../../services/role/role.service';
 import { AccessService } from '../../services/access/access.service';
 import { RoleAccessService } from '../../services/role-access/role-access.service';
+import { FocusService } from '../../services/focus/focus.service';
 
 import { AdminSchema } from '../../schema/admin.schema';
 import { RoleSchema } from '../../schema/role.schema';
 import { AccessSchema } from '../../schema/access.schema';
-import { RoleAccessSchema } from '../../schema/role_access';
+import { RoleAccessSchema } from '../../schema/role_access.schema';
+import { FocusSchema } from '../../schema/focus.schema';
 
 
 @Module({
@@ -42,6 +45,11 @@ import { RoleAccessSchema } from '../../schema/role_access';
         schema: RoleAccessSchema,
         collection: 'role_access',
       },
+      {
+        name: 'Focus',
+        schema: FocusSchema,
+        collection: 'focus',
+      },
     ]),
   ],
   controllers: [
@@ -50,6 +58,7 @@ import { RoleAccessSchema } from '../../schema/role_access';
     ManagerController,
     RoleController,
     AccessController,
+    FocusController,
   ],
   providers: [
     ToolsService,
@@ -57,6 +66,7 @@ import { RoleAccessSchema } from '../../schema/role_access';
     RoleService,
     AccessService,
     RoleAccessService,
+    FocusService
   ],
   exports: [AdminService, RoleService, AccessService, RoleAccessService],
 })

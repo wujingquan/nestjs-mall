@@ -1,6 +1,11 @@
 import { Injectable } from '@nestjs/common';
 import * as svgCaptcha from 'svg-captcha';
 import * as md5 from 'md5';
+const mkdirp = require('mkdirp');
+import { Config } from '../../config';
+import { join, extname } from 'path'
+import { createWriteStream } from 'fs'
+const moment = require('moment');
 
 @Injectable()
 export class ToolsService {
@@ -30,5 +35,36 @@ export class ToolsService {
       message: message,
       redirectUrl: redirectUrl,
     });
+  }
+
+  getTime() {
+    let d = new Date();
+    return d.getTime();
+  }
+
+  upLoadFile(file) {
+    console.log('debug')
+    if (!file) {
+      return {
+        saveDir: '',
+        uploadDir: ""
+      };
+    }
+
+    const day = moment().format('YYYYMMDD');
+    const d = this.getTime();
+    const dir = join(__dirname, `../../../public/${Config.uploadDir}`, day);
+    mkdirp.sync(dir);
+    let uploadDir = join(dir, d + extname(file.originalname));
+
+    const writeImage = createWriteStream(uploadDir);
+    writeImage.write(file.buffer);
+
+    let saveDir = join(Config.uploadDir, day, d + extname(file.originalname));
+
+    return {
+      saveDir,
+      uploadDir
+    };
   }
 }
