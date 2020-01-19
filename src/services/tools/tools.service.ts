@@ -42,7 +42,7 @@ export class ToolsService {
     return d.getTime();
   }
 
-  upLoadFile(file) {
+  uploadFile(file) {
     console.log('debug')
     if (!file) {
       return {

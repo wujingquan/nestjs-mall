@@ -1,4 +1,4 @@
-import { Controller, Get, Render, Post, UseInterceptors, Body, UploadedFile, Response } from '@nestjs/common';
+import { Controller, Get, Render, Post, UseInterceptors, Body, UploadedFile, Response, Query } from '@nestjs/common';
 import { Config } from '../../../config/index';
 
 import { FocusService } from '../../../services/focus/focus.service';
@@ -22,6 +22,38 @@ export class FocusController {
     return {}
   }
 
+  @Get('edit')
+  @Render('admin/focus/edit')
+  async edit(@Query() query) {
+    try {
+      const resule = await this.focusService.find({ _id: query.id })
+      return {
+        focus: resule[0]
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
+  @Post('doEdit')
+  @UseInterceptors(FileInterceptor('focus_img'))
+  async doEdit(@Body() body, @UploadedFile() file, @Response() res) {
+    let _id = body._id;
+
+    if (file) {
+      let { saveDir } = this.toolsService.uploadFile(file);
+      await this.focusService.update({
+        "_id": _id
+      }, Object.assign(body, {
+        focus_img: saveDir
+      }));
+    } else {
+      await this.focusService.update({
+        "_id": _id
+      }, body);
+    }
+  }
+
   @Get('add')
   @Render('admin/focus/add')
   async add() {
@@ -31,11 +63,17 @@ export class FocusController {
   @Post('doAdd')
   @UseInterceptors(FileInterceptor('focus_img'))
   async doAdd(@Body() body, @UploadedFile() file, @Response() res) {
-    this.toolsService.upLoadFile(file);
-    let { saveDir } = this.toolsService.upLoadFile(file);
+    this.toolsService.uploadFile(file);
+    let { saveDir } = this.toolsService.uploadFile(file);
     await this.focusService.add(Object.assign(body, {
       focus_img: saveDir
     }))
+    this.toolsService.success(res, `/${Config.adminPath}/focus`);
+  }
+
+  @Get('delete')
+  async delete(@Query() query, @Response() res) {
+    var result = await this.focusService.delete({ "_id": query.id });
     this.toolsService.success(res, `/${Config.adminPath}/focus`);
   }
 }
