@@ -20,6 +20,7 @@ import { RoleSchema } from '../../schema/role.schema';
 import { AccessSchema } from '../../schema/access.schema';
 import { RoleAccessSchema } from '../../schema/role_access.schema';
 import { FocusSchema } from '../../schema/focus.schema';
+import { GoodsController } from './goods/goods.controller';
 
 
 @Module({
@@ -59,6 +60,7 @@ import { FocusSchema } from '../../schema/focus.schema';
     RoleController,
     AccessController,
     FocusController,
+    GoodsController,
   ],
   providers: [
     ToolsService,
