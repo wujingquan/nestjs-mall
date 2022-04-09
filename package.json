@@ -30,7 +30,7 @@
     "express-session": "^1.17.0",
     "md5": "^2.2.1",
     "mkdirp": "^0.5.1",
-    "moment": "^2.24.0",
+    "moment": "^2.29.2",
     "mongoose": "^5.8.3",
     "reflect-metadata": "^0.1.13",
     "rimraf": "^3.0.0",
